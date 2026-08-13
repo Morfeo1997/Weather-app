@@ -51,11 +51,16 @@ export default function Home() {
 
     return () => ctx.revert();
   }, []);
+  
+  const navigate = useNavigate();
 
 		const handleCityClick = (city: City) => {
   		if (city.id === "salta") {
     		navigate("/salta");
   		}
+  		if (city.id === "valencia") {
+    		navigate("/valencia");
+    		}
 	};
 	
   return (
