@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { Github, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
-import CityCard from "../components/CityCard";
+import CityCard from "../components/home/CityCard";
 import MusicPlayer from "../components/MusicPlayer";
 import { cities, type City } from "../data/cities";
 
@@ -172,14 +172,17 @@ export default function Home() {
             >
               Portfolio
             </a>
-
+		{/*
             <a
               href="#"
               className="flex items-center gap-1.5 transition-colors hover:text-white"
               aria-label="GitHub"
             >
+            
               <Github size={15} />
             </a>
+            
+            */}
           </div>
         </footer>
       </div>
