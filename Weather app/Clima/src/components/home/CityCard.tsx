@@ -47,30 +47,36 @@ export default function CityCard({ city, onClick }: CityCardProps) {
 
   return (
     <button
-      ref={cardRef}
-      type="button"
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="
-        group relative
-        min-h-64
-        overflow-hidden
-        rounded-3xl
-        border border-white/20
-        bg-white/10
-        p-6
-        text-left
-        shadow-xl
-        backdrop-blur-xl
-        transition-colors
-        duration-300
-        hover:bg-white/15
-        focus:outline-none
-        focus:ring-2
-        focus:ring-white/60
-      "
-    >
+  		ref={cardRef}
+  		type="button"
+  		onClick={handleClick}
+  		onMouseEnter={handleMouseEnter}
+  		onMouseLeave={handleMouseLeave}
+  		className="
+    		group
+    		relative
+    		flex
+    		h-full
+    		w-full
+    		min-h-64
+    		flex-col
+    		overflow-hidden
+    		rounded-3xl
+    		border
+    		border-white/20
+    		bg-white/10
+    		p-6
+    		text-left
+    		shadow-xl
+    		backdrop-blur-xl
+    		transition-colors
+    		duration-300
+    		hover:bg-white/15
+    		focus:outline-none
+    		focus:ring-2
+    		focus:ring-white/60
+  		"
+		>
       {/* Decorative gradient */}
       <div
         className={`
@@ -114,19 +120,19 @@ export default function CityCard({ city, onClick }: CityCardProps) {
       </div>
 
       {/* City information */}
-      <div className="relative">
-        <p className="mb-1 text-sm text-white/50">
-          {city.country}
-        </p>
-
-        <h2 className="text-2xl font-medium tracking-tight text-white">
-          {city.name}
-        </h2>
-
-        <p className="mt-2 text-sm text-white/60">
-          {city.description}
-        </p>
-      </div>
+		<div className="mt-auto">
+    		<p className="mb-1 text-sm text-white/50">
+      		{city.country}
+    		</p>
+		
+    		<h2 className="text-2xl font-medium tracking-tight text-white">
+      		{city.name}
+    		</h2>
+		
+    		<p className="mt-2 text-sm text-white/60">
+      		{city.description}
+    		</p>
+  		</div>
     </button>
   );
 }

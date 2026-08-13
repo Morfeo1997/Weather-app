@@ -125,18 +125,26 @@ export default function Home() {
 
         {/* Cities */}
         <section
-          ref={cardsRef}
-          className="grid flex-1 content-center gap-5 py-16 md:grid-cols-3"
-        >
-          {cities.map((city) => (
-            <div key={city.id} className="city-card">
-              <CityCard
-                city={city}
-                onClick={handleCityClick}
-              />
-            </div>
-          ))}
-        </section>
+  			ref={cardsRef}
+  			className="
+    			grid
+    			flex-1
+    			content-center
+    			items-stretch
+    			gap-5
+    			py-16
+    			md:grid-cols-3
+  			"
+			>
+  			{cities.map((city) => (
+    			<div key={city.id} className="city-card h-full">
+      			<CityCard
+        			city={city}
+        			onClick={handleCityClick}
+      			/>
+    			</div>
+  			))}
+		</section>
 
         {/* Music */}
         <section
