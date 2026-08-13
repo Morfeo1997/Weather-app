@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import CityCard from "../components/home/CityCard";
 import MusicPlayer from "../components/MusicPlayer";
@@ -51,13 +52,12 @@ export default function Home() {
     return () => ctx.revert();
   }, []);
 
-  const handleCityClick = (city: City) => {
-    console.log("Ciudad seleccionada:", city.name);
-
-    // Más adelante:
-    // navigate(`/weather/${city.id}`);
-  };
-
+		const handleCityClick = (city: City) => {
+  		if (city.id === "salta") {
+    		navigate("/salta");
+  		}
+	};
+	
   return (
     <main
       ref={containerRef}
