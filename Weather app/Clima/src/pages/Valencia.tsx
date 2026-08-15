@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowLeft, CloudSun, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import SkyScene from "../components/SkyScene";
 
 export default function ValenciaPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -276,10 +277,14 @@ export default function ValenciaPage() {
         text-white
       "
     >
+
+      <SkyScene
+        sunrise={7.5}
+        sunset={19}
+      />
       {/* =====================================================
           SKY
       ====================================================== */}
-
       <div
         ref={skyRef}
         className="
@@ -288,6 +293,8 @@ export default function ValenciaPage() {
           overflow-hidden
         "
       >
+      
+
         {/* =================================================
             STARS
         ================================================== */}
