@@ -4,6 +4,8 @@ import {
   MapPin,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import WeatherCards from "../components/WeatherCard";
+import { mockSaltaWeather } from "../data/MockWeather";
 
 import SkyScene from "../components/SkyScene";
 
@@ -114,6 +116,8 @@ export default function SaltaPage() {
           "
         >
           {/* Estado */}
+          
+          <WeatherCards days={mockSaltaWeather} />
 
           <div
             className="
