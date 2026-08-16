@@ -61,6 +61,9 @@ export default function Home() {
   		if (city.id === "valencia") {
     		navigate("/valencia");
     		}
+    	if (city.id === "jujuy") {
+    		navigate("/jujuy");
+    		}
 	};
 	
   return (
