@@ -40,3 +40,31 @@ export const cities: City[] = [
     accent: "from-sky-400 to-cyan-300",
   },
 ];
+
+export interface CityConfig {
+  id: string;
+  name: string;
+  location: string;
+  country: string;
+}
+
+export const cities: CityConfig[] = [
+  {
+    id: "salta",
+    name: "Salta",
+    location: "Salta, Argentina",
+    country: "AR",
+  },
+  {
+    id: "jujuy",
+    name: "San Salvador de Jujuy",
+    location: "San Salvador de Jujuy, Argentina",
+    country: "AR",
+  },
+  {
+    id: "valencia",
+    name: "Valencia",
+    location: "Valencia, Spain",
+    country: "ES",
+  },
+];
