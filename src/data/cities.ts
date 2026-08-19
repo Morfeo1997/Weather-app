@@ -13,7 +13,7 @@ export interface City {
   icon: LucideIcon;
   accent: string;
 }
-
+{/*
 export const cities: City[] = [
   {
     id: "salta",
@@ -40,6 +40,7 @@ export const cities: City[] = [
     accent: "from-sky-400 to-cyan-300",
   },
 ];
+*/}
 
 export interface CityConfig {
   id: string;
@@ -54,17 +55,26 @@ export const cities: CityConfig[] = [
     name: "Salta",
     location: "Salta, Argentina",
     country: "AR",
+    description: "La Linda",
+    icon: CloudSun,
+    accent: "from-orange-400 to-amber-300",
   },
   {
     id: "jujuy",
     name: "San Salvador de Jujuy",
     location: "San Salvador de Jujuy, Argentina",
     country: "AR",
+    description: "Ciudad de los Valles",
+    icon: Sun,
+    accent: "from-yellow-400 to-orange-300",
   },
   {
     id: "valencia",
     name: "Valencia",
     location: "Valencia, Spain",
     country: "ES",
+    description: "Ciudad del Turia",
+    icon: Cloud,
+    accent: "from-sky-400 to-cyan-300",
   },
 ];
