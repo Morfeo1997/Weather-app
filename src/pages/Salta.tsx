@@ -13,13 +13,11 @@ import { useWeather } from "../hooks/useWeather";
 export default function SaltaPage() {
 
 	const {
-    	weather,
-    	loading,
-    	error,
-  	} = useWeather(
-    	"Salta, Argentina",
-  	);
-
+  	weather,
+  	loading,
+  	error,
+	} = useWeather("Salta, Argentina");
+	
  if (loading) { 
  	return (
     	<main
@@ -36,13 +34,9 @@ export default function SaltaPage() {
       	====================================================== */}
 	
       	<SkyScene
-  			sunrise={parseFloat(
-    			weather.current.sunrise,
-  			)}
-  			sunset={parseFloat(
-    			weather.current.sunset,
-  			)}
-			/>
+  		sunrise={weather.current.sunrise}
+  		sunset={weather.current.sunset}
+		/>
 	
       	{/* =====================================================
           	CONTENIDO DE LA PÁGINA
