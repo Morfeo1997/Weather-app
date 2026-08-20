@@ -8,6 +8,7 @@ import type {
 const API_KEY =
   import.meta.env.VITE_VISUAL_CROSSING_API_KEY;
 
+
 const BASE_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
@@ -157,30 +158,32 @@ function mapHour(
 }
 
 function mapDay(
-  day: VisualCrossingDay,
-): WeatherDay {
-  return {
-    date: day.datetime,
-
-    day: getDayName(
-      day.datetime,
-    ),
-
-    condition: mapCondition(
-      day.conditions,
-    ),
-
-    maxTemperature: Math.round(
-      day.tempmax,
-    ),
-
-    minTemperature: Math.round(
-      day.tempmin,
-    ),
-
-    hours: day.hours.map(mapHour),
-  };
-}
+  	day: VisualCrossingDay,
+	): WeatherDay {
+  	return {
+    	date: day.datetime,
+	
+    	day: getDayName(
+      	day.datetime,
+    	),
+	
+    	condition: mapCondition(
+      	day.conditions,
+    	),
+	
+    	maxTemperature: Math.round(
+      	day.tempmax,
+    	),
+	
+    	minTemperature: Math.round(
+      	day.tempmin,
+    	),
+	
+    	hours: (day.hours ?? []).map(
+      	mapHour,
+    	),
+  	};
+	}
 
 export async function getWeather(
   location: string,
@@ -215,6 +218,11 @@ export async function getWeather(
 
   const data: VisualCrossingResponse =
     await response.json();
+    
+    console.log(
+  	"Visual Crossing response:",
+  	data,
+	);
 
   return {
     city: location,

@@ -3,258 +3,217 @@ import {
   CloudSun,
   MapPin,
 } from "lucide-react";
+
 import { Link } from "react-router-dom";
-import WeatherCards from "../components/WeatherCard";
-import { mockSaltaWeather } from "../data/MockWeather";
 
 import SkyScene from "../components/SkyScene";
+import WeatherCards from "../components/WeatherCard";
+
 import { useWeather } from "../hooks/useWeather";
 
 export default function SaltaPage() {
+  const {
+    weather,
+    loading,
+    error,
+  } = useWeather("Salta, Argentina");
 
-	const {
-  	weather,
-  	loading,
-  	error,
-	} = useWeather("Salta, Argentina");
-	
- if (loading) { 
- 	return (
-    	<main
-      	className="
-        	relative
-        	min-h-screen
-        	overflow-hidden
-        	bg-slate-950
-        	text-white
-      	"
-    	>
-      	{/* =====================================================
-          	ESCENA DEL CIELO
-      	====================================================== */}
-	
-      	<SkyScene
-  		sunrise={weather.current.sunrise}
-  		sunset={weather.current.sunset}
-		/>
-	
-      	{/* =====================================================
-          	CONTENIDO DE LA PÁGINA
-      	====================================================== */}
-	
-      	<div
-        	className="
-          	relative
-          	z-10
-          	mx-auto
-          	flex
-          	min-h-screen
-          	max-w-6xl
-          	flex-col
-          	px-6
-        	"
-      	>
-        	{/* =================================================
-            	HEADER
-        	================================================== */}
-	
-        	<header
-          	className="
-            	flex
-            	items-center
-            	justify-between
-            	pt-8
-          	"
-        	>
-          	{/* Volver */}
-	
-          	<Link
-            	to="/"
-            	className="
-              	flex
-              	items-center
-              	gap-2
-              	rounded-full
-              	border
-              	border-white/10
-              	bg-black/10
-              	px-4
-              	py-2
-              	text-sm
-              	text-white/70
-              	backdrop-blur-md
-              	transition
-              	hover:bg-white/10
-              	hover:text-white
-            	"
-          	>
-            	<ArrowLeft size={16} />
-	
-            	Volver
-          	</Link>
-	
-          	{/* Ubicación */}
-	
-          	<div
-            	className="
-              	flex
-              	items-center
-              	gap-2
-              	text-sm
-              	text-white/60
-            	"
-          	>
-            	<MapPin size={15} />
-	
-            	Salta, Argentina
-          	</div>
-        	</header>
-	
-        	{/* =================================================
-            	INFORMACIÓN DEL CLIMA
-        	================================================== */}
-	
-        	<section
-          	className="
-            	flex
-            	flex-1
-            	flex-col
-            	items-center
-            	justify-center
-            	text-center
-          	"
-        	>
-          	{/* Estado */}
-          	
-          	<WeatherCards
-  			days={weather.days}
-			/>
-	
-          	<div
-            	className="
-              	mb-4
-              	flex
-              	items-center
-              	justify-center
-              	gap-2
-              	text-sm
-              	uppercase
-              	tracking-[0.25em]
-              	text-white/50
-            	"
-          	>
-            	<CloudSun size={18} />
-	
-            	Clima actual
-          	</div>
-	
-          	{/* Ciudad */}
-	
-          	<h1
-            	className="
-              	text-6xl
-              	font-semibold
-              	tracking-[-0.05em]
-              	md:text-8xl
-            	"
-          	>
-            	Salta
-          	</h1>
-	
-          	{/* Temperatura */}
-	
-          	<div
-            	className="
-              	mt-8
-              	text-7xl
-              	font-light
-              	tracking-[-0.05em]
-              	md:text-9xl
-            	"
-          	>
-            	24°
-          	</div>
-	
-          	{/* Condición */}
-	
-          	<p
-            	className="
-              	mt-3
-              	text-lg
-              	text-white/60
-            	"
-          	>
-            	Parcialmente nublado
-          	</p>
-	
-          	{/* Máxima / mínima */}
-	
-          	<div
-            	className="
-              	mt-5
-              	flex
-              	justify-center
-              	gap-6
-              	text-sm
-              	text-white/40
-            	"
-          	>
-            	<span>
-              	Máx. 26°
-            	</span>
-	
-            	<span>
-              	Mín. 14°
-            	</span>
-          	</div>
-        	</section>
-	
-        	{/* =================================================
-            	FOOTER TEMPORAL
-        	================================================== */}
-	
-        	<div
-          	className="
-            	mb-8
-            	text-center
-            	text-xs
-            	uppercase
-            	tracking-[0.2em]
-            	text-white/30
-          	"
-        	>
-          	Salta · Experiencia climática
-        	</div>
-      	</div>
-    	</main>
-  	);
+  // ==========================================
+  // CARGANDO
+  // ==========================================
+
+  if (loading) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <p className="text-white/50">
+          Cargando clima...
+        </p>
+      </main>
+    );
   }
-  	if (error) {
-  	return (
-    	<main
-      	className="
-        	flex
-        	min-h-screen
-        	items-center
-        	justify-center
-        	bg-slate-950
-        	text-white
-      	"
-    	>
-      	<div className="text-center">
-        	<p className="text-red-400">
-          	No se pudo obtener el clima.
-        	</p>
-	
-        	<p className="mt-2 text-sm text-white/40">
-          	{error}
-        	</p>
-      	</div>
-    	</main>
-  	);
-	}
-	
-	if (!weather) {
-  	return null;
-	}
+
+  // ==========================================
+  // ERROR
+  // ==========================================
+
+  if (error) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <div className="text-center">
+          <p className="text-red-400">
+            No se pudo obtener el clima.
+          </p>
+
+          <p className="mt-2 text-sm text-white/40">
+            {error}
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  // ==========================================
+  // SEGURIDAD PARA TYPESCRIPT
+  // ==========================================
+
+  if (!weather) {
+    return null;
+  }
+
+  // ==========================================
+  // PÁGINA
+  // ==========================================
+
+  return (
+    <main
+      className="
+        relative
+        min-h-screen
+        overflow-hidden
+        bg-slate-950
+        text-white
+      "
+    >
+      <SkyScene
+        sunrise={weather.current.sunrise}
+        sunset={weather.current.sunset}
+      />
+
+      <div
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          min-h-screen
+          max-w-6xl
+          flex-col
+          px-6
+        "
+      >
+        <header
+          className="
+            flex
+            items-center
+            justify-between
+            pt-8
+          "
+        >
+          <Link
+            to="/"
+            className="
+              flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-white/10
+              bg-black/10
+              px-4
+              py-2
+              text-sm
+              text-white/70
+              backdrop-blur-md
+              transition
+              hover:bg-white/10
+              hover:text-white
+            "
+          >
+            <ArrowLeft size={16} />
+
+            Volver
+          </Link>
+
+          <div
+            className="
+              flex
+              items-center
+              gap-2
+              text-sm
+              text-white/60
+            "
+          >
+            <MapPin size={15} />
+
+            {weather.resolvedAddress}
+          </div>
+        </header>
+
+        <section
+          className="
+            flex
+            flex-1
+            flex-col
+            items-center
+            justify-center
+            text-center
+          "
+        >
+          <div
+            className="
+              mb-4
+              flex
+              items-center
+              gap-2
+              text-sm
+              uppercase
+              tracking-[0.25em]
+              text-white/50
+            "
+          >
+            <CloudSun size={18} />
+
+            {weather.current.condition}
+          </div>
+
+          <h1
+            className="
+              text-6xl
+              font-semibold
+              tracking-[-0.05em]
+              md:text-8xl
+            "
+          >
+            Salta
+          </h1>
+
+          <div
+            className="
+              mt-8
+              text-7xl
+              font-light
+              tracking-[-0.05em]
+              md:text-9xl
+            "
+          >
+            {weather.current.temperature}°
+          </div>
+        </section>
+
+        <div className="pb-10">
+          <WeatherCards
+            days={weather.days}
+          />
+        </div>
+      </div>
+    </main>
+  );
 }
