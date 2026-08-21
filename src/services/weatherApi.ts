@@ -35,7 +35,7 @@ interface VisualCrossingDay {
 
   conditions: string;
 
-  hours: VisualCrossingHour[];
+  hours?: VisualCrossingHour[];
 }
 
 interface VisualCrossingCurrent {
@@ -257,8 +257,8 @@ export async function getWeather(
         data.currentConditions.sunset,
     },
 
-    days: data.days
-      .slice(0, 7)
-      .map(mapDay),
+	days: (data.days ?? [])
+  	.slice(0, 7)
+  	.map(mapDay),
   };
 }
