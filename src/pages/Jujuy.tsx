@@ -1,13 +1,111 @@
 import {
   ArrowLeft,
   CloudSun,
+  Droplets,
   MapPin,
+  Wind,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import SkyScene from "../components/SkyScene";
+import WeatherCards from "../components/WeatherCard";
+import { useWeather } from "../hooks/useWeather";
 
 export default function JujuyPage() {
+  const {
+    weather,
+    loading,
+    error,
+  } = useWeather("San Salvador de Jujuy, Argentina");
+
+  // ==========================================
+  // LOADING
+  // ==========================================
+
+  if (loading) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <p className="text-white/50">
+          Cargando clima...
+        </p>
+      </main>
+    );
+  }
+
+  // ==========================================
+  // ERROR
+  // ==========================================
+
+  if (error) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <div className="text-center">
+          <p className="text-red-400">
+            No se pudo obtener el clima.
+          </p>
+
+          <p className="mt-2 text-sm text-white/40">
+            {error}
+          </p>
+
+          <Link
+            to="/"
+            className="
+              mt-6
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              px-4
+              py-2
+              text-sm
+              text-white/70
+              transition
+              hover:bg-white/10
+              hover:text-white
+            "
+          >
+            <ArrowLeft size={16} />
+            Volver
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  // ==========================================
+  // SEGURIDAD PARA TYPESCRIPT
+  // ==========================================
+
+  if (!weather) {
+    return null;
+  }
+
+  // ==========================================
+  // PÁGINA
+  // ==========================================
+
   return (
     <main
       className="
@@ -18,18 +116,18 @@ export default function JujuyPage() {
         text-white
       "
     >
-      {/* =====================================================
-          ESCENA DEL CIELO
-      ====================================================== */}
+      {/* ========================================
+          CIELO / SOL / LUNA
+      ========================================= */}
 
       <SkyScene
-        sunrise={7.25}
-        sunset={19.25}
+        sunrise={weather.current.sunrise}
+        sunset={weather.current.sunset}
       />
 
-      {/* =====================================================
-          CONTENIDO DE LA PÁGINA
-      ====================================================== */}
+      {/* ========================================
+          CONTENIDO
+      ========================================= */}
 
       <div
         className="
@@ -43,20 +141,19 @@ export default function JujuyPage() {
           px-6
         "
       >
-        {/* =================================================
+        {/* ======================================
             HEADER
-        ================================================== */}
+        ======================================= */}
 
         <header
           className="
             flex
             items-center
             justify-between
+            gap-4
             pt-8
           "
         >
-          {/* Volver */}
-
           <Link
             to="/"
             className="
@@ -82,26 +179,27 @@ export default function JujuyPage() {
             Volver
           </Link>
 
-          {/* Ubicación */}
-
           <div
             className="
               flex
               items-center
               gap-2
+              text-right
               text-sm
               text-white/60
             "
           >
             <MapPin size={15} />
 
-            San Salvador de Jujuy, Argentina
+            <span>
+              {weather.resolvedAddress}
+            </span>
           </div>
         </header>
 
-        {/* =================================================
-            INFORMACIÓN DEL CLIMA
-        ================================================== */}
+        {/* ======================================
+            WEATHER PRINCIPAL
+        ======================================= */}
 
         <section
           className="
@@ -110,41 +208,50 @@ export default function JujuyPage() {
             flex-col
             items-center
             justify-center
+            py-16
             text-center
           "
         >
-          {/* Estado */}
+          {/* Condición */}
 
           <div
             className="
-              mb-4
+              mb-5
               flex
               items-center
-              justify-center
               gap-2
-              text-sm
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              px-4
+              py-2
+              text-xs
               uppercase
               tracking-[0.25em]
               text-white/50
+              backdrop-blur-md
             "
           >
-            <CloudSun size={18} />
+            <CloudSun size={16} />
 
-            Clima actual
+            {weather.current.condition}
           </div>
 
           {/* Ciudad */}
 
           <h1
             className="
-              max-w-4xl
               text-5xl
               font-semibold
               tracking-[-0.05em]
-              md:text-7xl
+              sm:text-6xl
+              md:text-8xl
             "
           >
-            San Salvador de Jujuy
+            San Salvador
+            <br />
+            de Jujuy
           </h1>
 
           {/* Temperatura */}
@@ -153,64 +260,142 @@ export default function JujuyPage() {
             className="
               mt-8
               text-7xl
-              font-light
-              tracking-[-0.05em]
+              font-extralight
+              tracking-[-0.07em]
+              sm:text-8xl
               md:text-9xl
             "
           >
-            22°
+            {weather.current.temperature}
+            <span className="text-white/40">
+              °
+            </span>
           </div>
 
-          {/* Condición */}
-
-          <p
-            className="
-              mt-3
-              text-lg
-              text-white/60
-            "
-          >
-            Parcialmente nublado
-          </p>
-
-          {/* Máxima / mínima */}
+          {/* Datos actuales */}
 
           <div
             className="
-              mt-5
+              mt-8
               flex
+              flex-wrap
+              items-center
               justify-center
-              gap-6
-              text-sm
-              text-white/40
+              gap-3
             "
           >
-            <span>
-              Máx. 25°
-            </span>
+            {/* Humedad */}
 
-            <span>
-              Mín. 13°
-            </span>
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/5
+                px-4
+                py-3
+                text-sm
+                text-white/60
+                backdrop-blur-md
+              "
+            >
+              <Droplets
+                size={16}
+              />
+
+              <span>
+                {weather.current.humidity}%
+              </span>
+            </div>
+
+            {/* Viento */}
+
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/5
+                px-4
+                py-3
+                text-sm
+                text-white/60
+                backdrop-blur-md
+              "
+            >
+              <Wind
+                size={16}
+              />
+
+              <span>
+                {weather.current.windSpeed} km/h
+              </span>
+            </div>
           </div>
         </section>
 
-        {/* =================================================
-            FOOTER TEMPORAL
-        ================================================== */}
+        {/* ======================================
+            PRONÓSTICO
+        ======================================= */}
 
-        <div
+        <section
           className="
-            mb-8
-            text-center
-            text-xs
-            uppercase
-            tracking-[0.2em]
-            text-white/30
+            pb-10
           "
         >
-          Jujuy · Experiencia climática
-        </div>
+          <div
+            className="
+              mb-4
+              flex
+              items-end
+              justify-between
+              gap-4
+            "
+          >
+            <div>
+              <p
+                className="
+                  text-xs
+                  uppercase
+                  tracking-[0.25em]
+                  text-white/30
+                "
+              >
+                Pronóstico
+              </p>
+
+              <h2
+                className="
+                  mt-1
+                  text-xl
+                  font-medium
+                  text-white/80
+                "
+              >
+                Próximos días
+              </h2>
+            </div>
+
+            <p
+              className="
+                text-xs
+                text-white/30
+              "
+            >
+              7 días
+            </p>
+          </div>
+
+          <WeatherCards
+            days={weather.days}
+          />
+        </section>
       </div>
     </main>
   );
