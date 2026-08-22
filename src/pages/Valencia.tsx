@@ -1,10 +1,110 @@
-import { useEffect, useRef } from "react";
-import { ArrowLeft, CloudSun, MapPin } from "lucide-react";
+import {
+  ArrowLeft,
+  CloudSun,
+  Droplets,
+  MapPin,
+  Wind,
+} from "lucide-react";
 import { Link } from "react-router-dom";
-import gsap from "gsap";
+
 import SkyScene from "../components/SkyScene";
+import WeatherCards from "../components/WeatherCard";
+import { useWeather } from "../hooks/useWeather";
 
 export default function ValenciaPage() {
+  const {
+    weather,
+    loading,
+    error,
+  } = useWeather("Valencia, Spain");
+
+  // ==========================================
+  // LOADING
+  // ==========================================
+
+  if (loading) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <p className="text-white/50">
+          Cargando clima...
+        </p>
+      </main>
+    );
+  }
+
+  // ==========================================
+  // ERROR
+  // ==========================================
+
+  if (error) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-slate-950
+          text-white
+        "
+      >
+        <div className="text-center">
+          <p className="text-red-400">
+            No se pudo obtener el clima.
+          </p>
+
+          <p className="mt-2 text-sm text-white/40">
+            {error}
+          </p>
+
+          <Link
+            to="/"
+            className="
+              mt-6
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              px-4
+              py-2
+              text-sm
+              text-white/70
+              transition
+              hover:bg-white/10
+              hover:text-white
+            "
+          >
+            <ArrowLeft size={16} />
+            Volver
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  // ==========================================
+  // SEGURIDAD PARA TYPESCRIPT
+  // ==========================================
+
+  if (!weather) {
+    return null;
+  }
+
+  // ==========================================
+  // PÁGINA
+  // ==========================================
 
   return (
     <main
@@ -16,19 +116,18 @@ export default function ValenciaPage() {
         text-white
       "
     >
+      {/* ========================================
+          CIELO / SOL / LUNA
+      ========================================= */}
 
       <SkyScene
-        sunrise={7.5}
-        sunset={19}
+        sunrise={weather.current.sunrise}
+        sunset={weather.current.sunset}
       />
-      {/* =====================================================
-          SKY
-      ====================================================== */}
 
-
-      {/* =====================================================
-          CONTENT
-      ====================================================== */}
+      {/* ========================================
+          CONTENIDO
+      ========================================= */}
 
       <div
         className="
@@ -42,15 +141,16 @@ export default function ValenciaPage() {
           px-6
         "
       >
-        {/* =================================================
+        {/* ======================================
             HEADER
-        ================================================== */}
+        ======================================= */}
 
         <header
           className="
             flex
             items-center
             justify-between
+            gap-4
             pt-8
           "
         >
@@ -84,19 +184,22 @@ export default function ValenciaPage() {
               flex
               items-center
               gap-2
+              text-right
               text-sm
               text-white/60
             "
           >
             <MapPin size={15} />
 
-            Valencia, España
+            <span>
+              {weather.resolvedAddress}
+            </span>
           </div>
         </header>
 
-        {/* =================================================
-            WEATHER
-        ================================================== */}
+        {/* ======================================
+            WEATHER PRINCIPAL
+        ======================================= */}
 
         <section
           className="
@@ -105,95 +208,188 @@ export default function ValenciaPage() {
             flex-col
             items-center
             justify-center
+            py-16
             text-center
           "
         >
-          <div >
-            <div
-              className="
-                mb-4
-                flex
-                items-center
-                justify-center
-                gap-2
-                text-sm
-                uppercase
-                tracking-[0.25em]
-                text-white/50
-              "
-            >
-              <CloudSun size={18} />
-
-              Clima actual
-            </div>
-
-            <h1
-              className="
-                text-6xl
-                font-semibold
-                tracking-[-0.05em]
-                md:text-8xl
-              "
-            >
-              Valencia
-            </h1>
-          </div>
+          {/* Condición */}
 
           <div
-            className="mt-8"
+            className="
+              mb-5
+              flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              px-4
+              py-2
+              text-xs
+              uppercase
+              tracking-[0.25em]
+              text-white/50
+              backdrop-blur-md
+            "
           >
+            <CloudSun size={16} />
+
+            {weather.current.condition}
+          </div>
+
+          {/* Ciudad */}
+
+          <h1
+            className="
+              text-6xl
+              font-semibold
+              tracking-[-0.05em]
+              sm:text-7xl
+              md:text-9xl
+            "
+          >
+            Valencia
+          </h1>
+
+          {/* Temperatura */}
+
+          <div
+            className="
+              mt-8
+              text-7xl
+              font-extralight
+              tracking-[-0.07em]
+              sm:text-8xl
+              md:text-9xl
+            "
+          >
+            {weather.current.temperature}
+            <span className="text-white/40">
+              °
+            </span>
+          </div>
+
+          {/* Datos actuales */}
+
+          <div
+            className="
+              mt-8
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-3
+            "
+          >
+            {/* Humedad */}
+
             <div
               className="
-                text-7xl
-                font-light
-                tracking-[-0.05em]
-                md:text-9xl
+                flex
+                items-center
+                gap-2
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/5
+                px-4
+                py-3
+                text-sm
+                text-white/60
+                backdrop-blur-md
               "
             >
-              29°
+              <Droplets size={16} />
+
+              <span>
+                {weather.current.humidity}%
+              </span>
             </div>
 
-            <p className="mt-3 text-lg text-white/60">
-              Cielo despejado
-            </p>
+            {/* Viento */}
 
             <div
               className="
-                mt-5
                 flex
-                justify-center
-                gap-6
+                items-center
+                gap-2
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/5
+                px-4
+                py-3
                 text-sm
-                text-white/40
+                text-white/60
+                backdrop-blur-md
               "
             >
-              <span>
-                Máx. 31°
-              </span>
+              <Wind size={16} />
 
               <span>
-                Mín. 22°
+                {weather.current.windSpeed} km/h
               </span>
             </div>
           </div>
         </section>
 
-        {/* =================================================
-            FOOTER
-        ================================================== */}
+        {/* ======================================
+            PRONÓSTICO
+        ======================================= */}
 
-        <div
+        <section
           className="
-            mb-8
-            text-center
-            text-xs
-            uppercase
-            tracking-[0.2em]
-            text-white/30
+            pb-10
           "
         >
-          Valencia · Experiencia climática
-        </div>
+          <div
+            className="
+              mb-4
+              flex
+              items-end
+              justify-between
+              gap-4
+            "
+          >
+            <div>
+              <p
+                className="
+                  text-xs
+                  uppercase
+                  tracking-[0.25em]
+                  text-white/30
+                "
+              >
+                Pronóstico
+              </p>
+
+              <h2
+                className="
+                  mt-1
+                  text-xl
+                  font-medium
+                  text-white/80
+                "
+              >
+                Próximos días
+              </h2>
+            </div>
+
+            <p
+              className="
+                text-xs
+                text-white/30
+              "
+            >
+              7 días
+            </p>
+          </div>
+
+          <WeatherCards
+            days={weather.days}
+          />
+        </section>
       </div>
     </main>
   );
