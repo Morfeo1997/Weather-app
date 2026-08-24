@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 import type {
-  WeatherCondition,
   WeatherDay,
-} from "./WeatherCard";
+  WeatherCondition,
+} from "../types/weather";
 
 export interface HourlyWeatherData {
   time: string;
@@ -28,7 +28,7 @@ export interface HourlyWeatherData {
 
 interface HourlyWeatherProps {
   day: WeatherDay;
-  hours: HourlyWeatherData[];
+  hours: WeatherHour[];
   onClose?: () => void;
 }
 
