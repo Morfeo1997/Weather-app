@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 
 import SkyScene from "../components/SkyScene";
-import WeatherCards from "../components/WeatherCard";
+import WeatherCards from "../components/WeatherCards";
 
 import { useWeather } from "../hooks/useWeather";
 
