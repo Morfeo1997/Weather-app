@@ -1,120 +1,17 @@
 import {
   ArrowLeft,
-  Cloud,
-  CloudRain,
-  CloudSun,
-  Droplets,
-  Moon,
-  Snowflake,
-  Sun,
-  Umbrella,
-  Wind,
 } from "lucide-react";
 
 import type {
-  WeatherDay,
   WeatherCondition,
+  WeatherDay,
+  WeatherHour,
 } from "../types/weather";
-
-export interface HourlyWeatherData {
-  time: string;
-  hour: number;
-  temperature: number;
-  condition: WeatherCondition;
-  precipitationProbability?: number;
-  humidity?: number;
-  windSpeed?: number;
-}
 
 interface HourlyWeatherProps {
   day: WeatherDay;
   hours: WeatherHour[];
   onClose?: () => void;
-}
-
-function WeatherIcon({
-  condition,
-  isNight,
-}: {
-  condition: WeatherCondition;
-  isNight: boolean;
-}) {
-  const className = "h-6 w-6";
-
-  if (isNight && condition === "sunny") {
-    return (
-      <Moon
-        className={className}
-        strokeWidth={1.5}
-      />
-    );
-  }
-
-  switch (condition) {
-    case "sunny":
-      return (
-        <Sun
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "partly-cloudy":
-      return (
-        <CloudSun
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "cloudy":
-      return (
-        <Cloud
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "rain":
-      return (
-        <CloudRain
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "storm":
-      return (
-        <Umbrella
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "snow":
-      return (
-        <Snowflake
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    case "wind":
-      return (
-        <Wind
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-
-    default:
-      return (
-        <CloudSun
-          className={className}
-          strokeWidth={1.5}
-        />
-      );
-  }
 }
 
 function getConditionLabel(
@@ -147,15 +44,27 @@ function getConditionLabel(
   }
 }
 
-function isNightHour(hour: number) {
-  return hour < 7 || hour >= 20;
-}
-
 export default function HourlyWeather({
   day,
   hours,
   onClose,
 }: HourlyWeatherProps) {
+  /*
+   * =====================================================
+   * MOSTRAR UNA MEDICIÓN CADA 2 HORAS
+   * =====================================================
+   */
+
+	const timelineHours = hours.filter(
+  	(hour) => {
+    	const hourNumber = Number(
+      	hour.datetime.slice(0, 2),
+    	);
+	
+    	return hourNumber % 2 === 0;
+  	},
+	);
+
   return (
     <section
       className="
@@ -251,7 +160,6 @@ export default function HourlyWeather({
         className="
           overflow-x-auto
           pb-4
-          scrollbar-none
         "
       >
         <div
@@ -259,182 +167,133 @@ export default function HourlyWeather({
             relative
             flex
             min-w-max
-            gap-0
-            px-4
+            px-8
+            pb-2
+            pt-4
           "
         >
-          {/* Línea horizontal */}
+          {/* =================================================
+              LÍNEA
+          ================================================== */}
 
           <div
             className="
               absolute
-              left-4
-              right-4
-              top-[58px]
+              left-8
+              right-8
+              top-[76px]
               h-px
-              bg-white/10
+              bg-white/20
             "
           />
 
-          {hours.map((weather, index) => {
-            const night = isNightHour(
-              weather.hour,
-            );
+          {timelineHours.map(
+            (weather, index) => {
+              const isLast =
+                index ===
+                timelineHours.length - 1;
 
-            return (
-              <article
-                key={`${day.date}-${weather.time}-${index}`}
-                className="
-                  relative
-                  flex
-                  w-28
-                  flex-col
-                  items-center
-                "
-              >
-                {/* =================================================
-                    HORA
-                ================================================== */}
-
-                <span
-                  className="
-                    mb-5
-                    text-sm
-                    font-medium
-                    text-white/70
-                  "
-                >
-                  {weather.time}
-                </span>
-
-                {/* =================================================
-                    PUNTO DE LA TIMELINE
-                ================================================== */}
-
+              return (
                 <div
+                  key={`${day.date}-${weather.datetime}`}
                   className="
                     relative
-                    z-10
-                    mb-5
                     flex
-                    h-3
-                    w-3
+                    w-32
+                    flex-col
                     items-center
-                    justify-center
-                    rounded-full
-                    bg-white
-                    ring-4
-                    ring-slate-950/50
-                  "
-                />
-
-                {/* =================================================
-                    ICONO
-                ================================================== */}
-
-                <div
-                  className="
-                    flex
-                    h-12
-                    w-12
-                    items-center
-                    justify-center
-                    rounded-2xl
-                    border
-                    border-white/10
-                    bg-white/10
-                    text-white/80
                   "
                 >
-                  <WeatherIcon
-                    condition={weather.condition}
-                    isNight={night}
+                  {/* =========================================
+                      TEMPERATURA
+                  ========================================== */}
+
+                  <div
+                    className="
+                      mb-4
+                      text-xl
+                      font-medium
+                      tracking-tight
+                    "
+                  >
+                    {weather.temperature}°
+                  </div>
+
+                  {/* =========================================
+                      PUNTO
+                  ========================================== */}
+
+                  <div
+                    className="
+                      relative
+                      z-10
+                      flex
+                      h-3
+                      w-3
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-white
+                      shadow-[0_0_12px_rgba(255,255,255,0.35)]
+                    "
                   />
-                </div>
 
-                {/* =================================================
-                    TEMPERATURA
-                ================================================== */}
+                  {/* =========================================
+                      HORA
+                  ========================================== */}
 
-                <span
-                  className="
-                    mt-3
-                    text-xl
-                    font-medium
-                  "
-                >
-                  {weather.temperature}°
-                </span>
+                  <div
+                    className="
+                      mt-4
+                      text-sm
+                      font-medium
+                      text-white/60
+                    "
+                  >
+                    {weather.datetime.slice(
+                      0,
+                      5,
+                    )}
+                  </div>
 
-                {/* =================================================
-                    CONDICIÓN
-                ================================================== */}
+                  {/* =========================================
+                      CONDICIÓN
+                  ========================================== */}
 
-                <span
-                  className="
-                    mt-1
-                    text-center
-                    text-xs
-                    leading-4
-                    text-white/40
-                  "
-                >
-                  {getConditionLabel(
-                    weather.condition,
-                  )}
-                </span>
+                  <div
+                    className="
+                      mt-1
+                      max-w-24
+                      text-center
+                      text-[10px]
+                      text-white/30
+                    "
+                  >
+                    {getConditionLabel(
+                      weather.condition,
+                    )}
+                  </div>
 
-                {/* =================================================
-                    DATOS EXTRA
-                ================================================== */}
+                  {/* =========================================
+                      SEPARADOR VISUAL
+                  ========================================== */}
 
-                <div
-                  className="
-                    mt-4
-                    space-y-2
-                    text-xs
-                    text-white/30
-                  "
-                >
-                  {weather.precipitationProbability !==
-                    undefined && (
-                    <div className="flex items-center gap-1.5">
-                      <Droplets size={12} />
-
-                      <span>
-                        {
-                          weather.precipitationProbability
-                        }
-                        %
-                      </span>
-                    </div>
-                  )}
-
-                  {weather.humidity !==
-                    undefined && (
-                    <div className="flex items-center gap-1.5">
-                      <Droplets size={12} />
-
-                      <span>
-                        {weather.humidity}%
-                      </span>
-                    </div>
-                  )}
-
-                  {weather.windSpeed !==
-                    undefined && (
-                    <div className="flex items-center gap-1.5">
-                      <Wind size={12} />
-
-                      <span>
-                        {weather.windSpeed} km/h
-                      </span>
-                    </div>
+                  {!isLast && (
+                    <div
+                      className="
+                        pointer-events-none
+                        absolute
+                        left-1/2
+                        top-[72px]
+                        h-[9px]
+                        w-32
+                      "
+                    />
                   )}
                 </div>
-              </article>
-            );
-          })}
+              );
+            },
+          )}
         </div>
       </div>
     </section>
