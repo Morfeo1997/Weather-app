@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import TemperatureTimeline from "./TemperatureTimeline";
+import RainfallTimeline from "./RainfallTimeline";
 
 import type {
   WeatherDay,
@@ -259,13 +260,12 @@ export default function HourCard({
   			/>
 		)}
 
-        {activeView ===
-          "precipitation" &&
-          hasPrecipitation && (
-            <PrecipitationView
-              hours={hours}
-            />
-          )}
+        {activeView === "precipitation" &&
+  		hasPrecipitation && (
+    		<RainfallTimeline
+      		hours={hours}
+    		/>
+  		)}
 
         {activeView === "wind" &&
           hasWind && (
