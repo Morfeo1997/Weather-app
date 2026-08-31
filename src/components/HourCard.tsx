@@ -4,6 +4,7 @@ import {
   Wind,
 } from "lucide-react";
 import { useState } from "react";
+import TemperatureTimeline from "./TemperatureTimeline";
 
 import type {
   WeatherDay,
@@ -253,10 +254,10 @@ export default function HourCard({
 
       <div className="mt-8">
         {activeView === "temperature" && (
-          <TemperatureView
-            hours={hours}
-          />
-        )}
+  			<TemperatureTimeline
+    			hours={hours}
+  			/>
+		)}
 
         {activeView ===
           "precipitation" &&
