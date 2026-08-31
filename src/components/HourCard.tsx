@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import TemperatureTimeline from "./TemperatureTimeline";
 import RainfallTimeline from "./RainfallTimeline";
+import WindTimeline from "./WindTimeline";
 
 import type {
   WeatherDay,
@@ -268,11 +269,11 @@ export default function HourCard({
   		)}
 
         {activeView === "wind" &&
-          hasWind && (
-            <WindView
-              hours={hours}
-            />
-          )}
+  			hasWind && (
+    			<WindTimeline
+      			hours={hours}
+    		/>
+  		)}
       </div>
     </div>
   );
