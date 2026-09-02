@@ -134,6 +134,7 @@ function mapHour(
 ): WeatherHour {
   return {
     datetime: hour.datetime,
+    
 
     datetimeEpoch:
       hour.datetimeEpoch,
@@ -147,15 +148,18 @@ function mapHour(
     ),
 
     precipitationProbability:
-      hour.precipprob ?? 0,
+    	hour.precipprob ?? 0,
 
-    humidity:
-      hour.humidity ?? 0,
-
-    windSpeed:
-      hour.windspeed ?? 0,
+	precipitationProbability: 
+		hour.precipprob,
+	windSpeed:
+		 hour.windspeed,
+		 
+	
   };
+  console.log("HOUR:", hour);
 }
+
 
 function mapDay(
   	day: VisualCrossingDay,

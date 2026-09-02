@@ -51,19 +51,20 @@ export default function HourCard({
    * =====================================================
    */
 
-  const hasPrecipitation =
-    hours.some(
-      (hour) =>
-        hour.precipitationProbability !==
-        undefined,
-    );
-
-  const hasWind =
-    hours.some(
-      (hour) =>
-        hour.windSpeed !== undefined,
-    );
-
+	const hasPrecipitation =
+  	hours.some(
+    	(hour) =>
+      	typeof hour.precipitationProbability ===
+      	"number",
+  	);
+	
+	const hasWind =
+  	hours.some(
+    	(hour) =>
+      	typeof hour.windSpeed ===
+      	"number",
+  	);
+	
   /*
    * =====================================================
    * RENDER
@@ -285,60 +286,7 @@ export default function HourCard({
  * =======================================================
  */
 
-function TemperatureView({
-  hours,
-}: {
-  hours: WeatherDay["hours"];
-}) {
-  return (
-    <div
-      className="
-        grid
-        grid-cols-2
-        gap-3
-        sm:grid-cols-3
-        md:grid-cols-4
-        lg:grid-cols-6
-      "
-    >
-      {hours.map((hour) => (
-        <div
-          key={hour.datetime}
-          className="
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/5
-            p-4
-            text-center
-          "
-        >
-          <p
-            className="
-              text-xs
-              text-white/40
-            "
-          >
-            {hour.datetime.slice(
-              0,
-              5,
-            )}
-          </p>
 
-          <p
-            className="
-              mt-2
-              text-2xl
-              font-light
-            "
-          >
-            {hour.temperature}°
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /*
  * =======================================================
@@ -346,72 +294,6 @@ function TemperatureView({
  * =======================================================
  */
 
-function PrecipitationView({
-  hours,
-}: {
-  hours: WeatherDay["hours"];
-}) {
-  return (
-    <div
-      className="
-        grid
-        grid-cols-2
-        gap-3
-        sm:grid-cols-3
-        md:grid-cols-4
-        lg:grid-cols-6
-      "
-    >
-      {hours.map((hour) => (
-        <div
-          key={hour.datetime}
-          className="
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/5
-            p-4
-            text-center
-          "
-        >
-          <p
-            className="
-              text-xs
-              text-white/40
-            "
-          >
-            {hour.datetime.slice(
-              0,
-              5,
-            )}
-          </p>
-
-          <p
-            className="
-              mt-2
-              text-2xl
-              font-light
-            "
-          >
-            {hour.precipitationProbability ??
-              0}
-            %
-          </p>
-
-          <p
-            className="
-              mt-1
-              text-xs
-              text-white/30
-            "
-          >
-            probabilidad
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /*
  * =======================================================
@@ -419,67 +301,3 @@ function PrecipitationView({
  * =======================================================
  */
 
-function WindView({
-  hours,
-}: {
-  hours: WeatherDay["hours"];
-}) {
-  return (
-    <div
-      className="
-        grid
-        grid-cols-2
-        gap-3
-        sm:grid-cols-3
-        md:grid-cols-4
-        lg:grid-cols-6
-      "
-    >
-      {hours.map((hour) => (
-        <div
-          key={hour.datetime}
-          className="
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/5
-            p-4
-            text-center
-          "
-        >
-          <p
-            className="
-              text-xs
-              text-white/40
-            "
-          >
-            {hour.datetime.slice(
-              0,
-              5,
-            )}
-          </p>
-
-          <p
-            className="
-              mt-2
-              text-2xl
-              font-light
-            "
-          >
-            {hour.windSpeed ?? 0}
-          </p>
-
-          <p
-            className="
-              mt-1
-              text-xs
-              text-white/30
-            "
-          >
-            km/h
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
