@@ -201,7 +201,7 @@ export async function getWeather(
       unitGroup: "metric",
       key: API_KEY,
       contentType: "json",
-      include: "current,days",
+      include: "current,days,hours",
     });
 
   const url =
