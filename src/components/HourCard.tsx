@@ -193,19 +193,23 @@ export default function HourCard({
           CONTENIDO
       ================================================== */}
 
-      <div className="mt-8">
-		{activeView === "temperature" && (
-  		<TemperatureTimeline hours={hours} />
-		)}
-		
-		{activeView === "precipitation" && (
-  		<RainfallTimeline hours={hours} />
-		)}
-		
-		{activeView === "wind" && (
-  		<WindTimeline hours={hours} />
-		)}
-      </div>
+      	<div className="mt-8">
+  			<pre className="text-xs text-white">
+    			{JSON.stringify(hours[0], null, 2)}
+  			</pre>
+			
+  			{activeView === "temperature" && (
+    			<TemperatureTimeline hours={hours} />
+  			)}
+			
+  			{activeView === "precipitation" && (
+    			<RainfallTimeline hours={hours} />
+  			)}
+			
+  			{activeView === "wind" && (
+    			<WindTimeline hours={hours} />
+  			)}
+		</div>
     </div>
   );
 }

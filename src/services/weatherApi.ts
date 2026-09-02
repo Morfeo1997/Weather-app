@@ -222,6 +222,16 @@ export async function getWeather(
     await response.json();
     
     console.log(
+  	"FIRST DAY RAW:",
+  	data.days?.[0],
+	);
+	
+	console.log(
+  	"FIRST DAY HOURS RAW:",
+  	data.days?.[0]?.hours,
+	);
+    
+    console.log(
   	"Visual Crossing response:",
   	data,
 	);
