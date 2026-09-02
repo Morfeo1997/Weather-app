@@ -132,12 +132,12 @@ function getDayName(date: string) {
 function mapHour(
   hour: VisualCrossingHour,
 ): WeatherHour {
+  console.log("HOUR:", hour);
+
   return {
     datetime: hour.datetime,
-    
 
-    datetimeEpoch:
-      hour.datetimeEpoch,
+    datetimeEpoch: hour.datetimeEpoch,
 
     temperature: Math.round(
       hour.temp,
@@ -148,16 +148,14 @@ function mapHour(
     ),
 
     precipitationProbability:
-    	hour.precipprob ?? 0,
+      hour.precipprob,
 
-	precipitationProbability: 
-		hour.precipprob,
-	windSpeed:
-		 hour.windspeed,
-		 
-	
+    humidity:
+      hour.humidity,
+
+    windSpeed:
+      hour.windspeed,
   };
-  console.log("HOUR:", hour);
 }
 
 

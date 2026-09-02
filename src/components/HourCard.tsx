@@ -40,6 +40,26 @@ export default function HourCard({
    */
 
   const hours = day.hours ?? [];
+  
+ 	console.log("DAY:", day);
+	console.log("HOURS:", hours);
+	console.log("FIRST HOUR:", hours[0]);
+	
+	console.log(
+  	"HAS PRECIPITATION:",
+  	hours.some(
+    	(hour) =>
+      	typeof hour.precipitationProbability === "number",
+  	),
+	);
+	
+	console.log(
+  	"HAS WIND:",
+  	hours.some(
+    	(hour) =>
+      	typeof hour.windSpeed === "number",
+  	),
+	);
 
   /*
    * =====================================================
@@ -131,150 +151,60 @@ export default function HourCard({
           SELECTOR
       ================================================== */}
 
-      <div
-        className="
-          mx-auto
-          flex
-          w-fit
-          flex-wrap
-          items-center
-          justify-center
-          gap-2
-          rounded-2xl
-          border
-          border-white/10
-          bg-black/10
-          p-1.5
-        "
-      >
-        {/* Temperatura */}
-
-        <button
-          type="button"
-          onClick={() =>
-            setActiveView("temperature")
-          }
-          className={`
-            flex
-            items-center
-            gap-2
-            rounded-xl
-            px-4
-            py-2.5
-            text-sm
-            transition-all
-            duration-200
-
-            ${
-              activeView === "temperature"
-                ? "bg-white/15 text-white"
-                : "text-white/40 hover:text-white/70"
-            }
-          `}
-        >
-          <Thermometer size={16} />
-
-          <span>
-            Temperatura
-          </span>
-        </button>
-
-        {/* Precipitaciones */}
-
-        {hasPrecipitation && (
-          <button
-            type="button"
-            onClick={() =>
-              setActiveView(
-                "precipitation",
-              )
-            }
-            className={`
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              px-4
-              py-2.5
-              text-sm
-              transition-all
-              duration-200
-
-              ${
-                activeView ===
-                "precipitation"
-                  ? "bg-white/15 text-white"
-                  : "text-white/40 hover:text-white/70"
-              }
-            `}
-          >
-            <CloudRain size={16} />
-
-            <span>
-              Precipitaciones
-            </span>
-          </button>
-        )}
-
-        {/* Viento */}
-
-        {hasWind && (
-          <button
-            type="button"
-            onClick={() =>
-              setActiveView("wind")
-            }
-            className={`
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              px-4
-              py-2.5
-              text-sm
-              transition-all
-              duration-200
-
-              ${
-                activeView === "wind"
-                  ? "bg-white/15 text-white"
-                  : "text-white/40 hover:text-white/70"
-              }
-            `}
-          >
-            <Wind size={16} />
-
-            <span>
-              Viento
-            </span>
-          </button>
-        )}
-      </div>
+	<div className="flex items-center justify-center gap-2">
+  	<button
+    	type="button"
+    	onClick={() => setActiveView("temperature")}
+    	className={`rounded-full px-4 py-2 text-sm transition ${
+      	activeView === "temperature"
+        	? "bg-white text-black"
+        	: "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white"
+    	}`}
+  	>
+    	Temperatura
+  	</button>
+	
+  	<button
+    	type="button"
+    	onClick={() => setActiveView("precipitation")}
+    	className={`rounded-full px-4 py-2 text-sm transition ${
+      	activeView === "precipitation"
+        	? "bg-white text-black"
+        	: "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white"
+    	}`}
+  	>
+    	Precipitaciones
+  	</button>
+	
+  	<button
+    	type="button"
+    	onClick={() => setActiveView("wind")}
+    	className={`rounded-full px-4 py-2 text-sm transition ${
+      	activeView === "wind"
+        	? "bg-white text-black"
+        	: "bg-white/10 text-white/60 hover:bg-white/15 hover:text-white"
+    	}`}
+  	>
+    	Viento
+  	</button>
+	</div>
 
       {/* =================================================
           CONTENIDO
       ================================================== */}
 
       <div className="mt-8">
-        {activeView === "temperature" && (
-  			<TemperatureTimeline
-    			hours={hours}
-  			/>
+		{activeView === "temperature" && (
+  		<TemperatureTimeline hours={hours} />
 		)}
-
-        {activeView === "precipitation" &&
-  		hasPrecipitation && (
-    		<RainfallTimeline
-      		hours={hours}
-    		/>
-  		)}
-
-        {activeView === "wind" &&
-  			hasWind && (
-    			<WindTimeline
-      			hours={hours}
-    		/>
-  		)}
+		
+		{activeView === "precipitation" && (
+  		<RainfallTimeline hours={hours} />
+		)}
+		
+		{activeView === "wind" && (
+  		<WindTimeline hours={hours} />
+		)}
       </div>
     </div>
   );
