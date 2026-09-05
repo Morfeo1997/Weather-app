@@ -70,13 +70,13 @@ function mapCondition(
   if (
     normalized.includes("thunder")
   ) {
-    return "storm";
+    return "tormenta";
   }
 
   if (
     normalized.includes("snow")
   ) {
-    return "snow";
+    return "nevado";
   }
 
   if (
@@ -84,34 +84,34 @@ function mapCondition(
     normalized.includes("drizzle") ||
     normalized.includes("showers")
   ) {
-    return "rain";
+    return "lluvia";
   }
 
   if (
     normalized.includes("wind")
   ) {
-    return "wind";
+    return "zonda";
   }
 
   if (
     normalized === "clear"
   ) {
-    return "sunny";
+    return "soleado";
   }
 
   if (
     normalized.includes("partially cloudy")
   ) {
-    return "partly-cloudy";
+    return "parcialmente nublado";
   }
 
   if (
     normalized.includes("cloud")
   ) {
-    return "cloudy";
+    return "nublado";
   }
 
-  return "partly-cloudy";
+  return "parcialmente nublado";
 }
 
 function getDayName(date: string) {

@@ -1,11 +1,11 @@
 export type WeatherCondition =
-  | "sunny"
-  | "partly-cloudy"
-  | "cloudy"
-  | "rain"
-  | "storm"
-  | "snow"
-  | "wind";
+  | "soleado"
+  | "parcialmente nublado"
+  | "nublado"
+  | "lluvia"
+  | "tormenta"
+  | "nevado"
+  | "zonda";
 
 export interface WeatherHour {
   datetime: string;
