@@ -1,8 +1,3 @@
-import {
-  CloudRain,
-  Thermometer,
-  Wind,
-} from "lucide-react";
 import { useState } from "react";
 import TemperatureTimeline from "./TemperatureTimeline";
 import RainfallTimeline from "./RainfallTimeline";
@@ -70,20 +65,6 @@ export default function HourCard({
    * no devuelve los datos necesarios.
    * =====================================================
    */
-
-	const hasPrecipitation =
-  	hours.some(
-    	(hour) =>
-      	typeof hour.precipitationProbability ===
-      	"number",
-  	);
-	
-	const hasWind =
-  	hours.some(
-    	(hour) =>
-      	typeof hour.windSpeed ===
-      	"number",
-  	);
 	
   /*
    * =====================================================
@@ -213,25 +194,3 @@ export default function HourCard({
     </div>
   );
 }
-
-/*
- * =======================================================
- * TEMPERATURA
- * =======================================================
- */
-
-
-
-/*
- * =======================================================
- * PRECIPITACIONES
- * =======================================================
- */
-
-
-/*
- * =======================================================
- * VIENTO
- * =======================================================
- */
-
