@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+
+@theme {
+
+	--color-jujuy-1: #E37629;
+	--color-jujuy-2: #804724;
+	--color-jujuy-3: #3B2102;
+	
+	--color-salta-1: #D90B2A;
+	--color-salta-2: #91071C;
+	--color-salta-3: #69030D;
+	--color-salta-4: #020024;
+	--color-salta-5: #161663;
+	--color-salta-6: #00D4FF;
+
+
+}

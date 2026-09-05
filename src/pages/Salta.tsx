@@ -88,7 +88,7 @@ export default function SaltaPage() {
         relative
         min-h-screen
         overflow-hidden
-        bg-slate-950
+        bg-linear-to-b from-salta-4 via-salta-5 to-salta-4
         text-white
       "
     >
@@ -187,6 +187,8 @@ export default function SaltaPage() {
           <h1
             className="
               text-6xl
+              inline
+              bg-linear-to-r from-salta-1 via-salta-2 to-salta-3 bg-clip-text text-transparent
               font-semibold
               tracking-[-0.05em]
               md:text-8xl
@@ -198,6 +200,7 @@ export default function SaltaPage() {
           <div
             className="
               mt-8
+              bg-linear-to-r from-salta-1 via-salta-2 to-salta-3 bg-clip-text text-transparent
               text-7xl
               font-light
               tracking-[-0.05em]
