@@ -173,6 +173,8 @@ export default function JujuyPage() {
              className="
                mb-4
                flex
+               inline
+               bg-linear-to-r from-jujuy-1 via-jujuy-3 via-jujuy-4 via-jujuy-5 to-jujuy-6 bg-clip-text text-transparent
                items-center
                gap-2
                text-sm
@@ -188,6 +190,8 @@ export default function JujuyPage() {
  
            <h1
              className="
+               inline
+               bg-linear-to-r from-jujuy-6 via-jujuy-4 via-jujuy-2 via-jujuy-3 via-jujuy-1 to-jujuy-5 bg-clip-text text-transparent
                text-6xl
                font-semibold
                tracking-[-0.05em]
@@ -200,6 +204,8 @@ export default function JujuyPage() {
            <div
              className="
                mt-8
+               inline
+               bg-linear-to-r from-jujuy-3 via-jujuy-2 via-jujuy-1 via-jujuy-5 via-jujuy-4 to-jujuy-6 bg-clip-text text-transparent
                text-7xl
                font-light
                tracking-[-0.05em]

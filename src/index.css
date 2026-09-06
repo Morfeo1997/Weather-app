@@ -3,9 +3,12 @@
 
 @theme {
 
-	--color-jujuy-1: #E37629;
-	--color-jujuy-2: #804724;
-	--color-jujuy-3: #3B2102;
+	--color-jujuy-1: #E37412;
+	--color-jujuy-2: #E8932C;
+	--color-jujuy-3: #B03F3F;
+	--color-jujuy-4: #80D457;
+	--color-jujuy-5: #E8C46F;
+	--color-jujuy-6: #992B5B;
 	
 	--color-salta-1: #D90B2A;
 	--color-salta-2: #91071C;
@@ -13,6 +16,10 @@
 	--color-salta-4: #020024;
 	--color-salta-5: #161663;
 	--color-salta-6: #00D4FF;
+	
+	--color-valencia-1: #054CF2;
+	--color-valencia-2: #E3B612;
+	--color-valencia-3: #BF0600;
 
 
 }

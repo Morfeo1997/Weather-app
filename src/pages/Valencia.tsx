@@ -186,6 +186,8 @@ export default function ValenciaPage() {
  
            <h1
              className="
+               inline
+               bg-linear-to-r from-valencia-1 via-valencia-2 to-valencia-3 bg-clip-text text-transparent
                text-6xl
                font-semibold
                tracking-[-0.05em]
@@ -197,6 +199,8 @@ export default function ValenciaPage() {
  
            <div
              className="
+               inline
+               bg-linear-to-r from-valencia-3 via-valencia-2 to-valencia-1 bg-clip-text text-transparent
                mt-8
                text-7xl
                font-light
