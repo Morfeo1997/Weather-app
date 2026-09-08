@@ -10,6 +10,7 @@ import SkyScene from "../components/SkyScene";
 import WeatherCards from "../components/WeatherCards";
 
 import { useWeather } from "../hooks/useWeather";
+import Cerro from "../assets/bg/Cerro.svg";
 
 export default function JujuyPage() {
   const {
@@ -55,9 +56,9 @@ export default function JujuyPage() {
            min-h-screen
            items-center
            justify-center
-           bg-slate-950
            text-white
          "
+         
        >
          <div className="text-center">
            <p className="text-red-400">
@@ -90,9 +91,11 @@ export default function JujuyPage() {
          relative
          min-h-screen
          overflow-hidden
+         bg-cover bg-center bg-no-repeat
          bg-slate-950
          text-white
        "
+      style={{ backgroundImage: `url(${Cerro})` }}
      >
        <SkyScene
          sunrise={weather.current.sunrise}
