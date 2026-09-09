@@ -10,6 +10,7 @@ import SkyScene from "../components/SkyScene";
 import WeatherCards from "../components/WeatherCards";
 
 import { useWeather } from "../hooks/useWeather";
+import ValenciaBg from "../assets/bg/Valencia.svg";
 
 export default function ValenciaPage() {
   const {
@@ -88,9 +89,11 @@ export default function ValenciaPage() {
          relative
          min-h-screen
          overflow-hidden
+         bg-cover bg-center bg-no-repeat
          bg-slate-950
          text-white
        "
+       style={{ backgroundImage: `url(${ValenciaBg})` }}
      >
        <SkyScene
          sunrise={weather.current.sunrise}

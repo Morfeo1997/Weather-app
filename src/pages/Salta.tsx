@@ -10,6 +10,7 @@ import SkyScene from "../components/SkyScene";
 import WeatherCards from "../components/WeatherCards";
 
 import { useWeather } from "../hooks/useWeather";
+import SaltaBg from "../assets/bg/Salta.svg";
 
 export default function SaltaPage() {
   const {
@@ -88,9 +89,11 @@ export default function SaltaPage() {
         relative
         min-h-screen
         overflow-hidden
-        bg-linear-to-b from-salta-4 via-salta-5 to-salta-4
+        bg-cover bg-center bg-no-repeat
+        bg-slate-950
         text-white
       "
+      style={{ backgroundImage: `url(${SaltaBg})` }}
     >
       <SkyScene
         sunrise={weather.current.sunrise}
