@@ -110,7 +110,7 @@ export default function Home() {
         {/* Header */}
         <header className="pt-12 text-center md:pt-16">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-white/40">
-            Weather experience
+            Clima en tiempo real
           </p>
 
           <h1
@@ -155,23 +155,24 @@ export default function Home() {
 		</section>
 
         {/* Music */}
+        {/*
         <section
           ref={musicRef}
           className="mx-auto mb-12 w-full max-w-2xl"
         >
           <MusicPlayer />
         </section>
+        */}
 
         {/* Footer */}
         <footer className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-white/40 md:flex-row">
           <p className="flex items-center gap-1.5">
             Hecho con
-            <Heart size={12} fill="currentColor" />
-            para el clima
+            <Heart size={12} className="fill-yellow-500" />
           </p>
 
           <p>
-            © {new Date().getFullYear()} Tu Nombre
+            © {new Date().getFullYear()} <a href="https://gaston-gomez1997.netlify.app" target="_blank" className="text-blue-400 font-bold text-sm cursor-pointer hover:text-cyan-400 transition-colors duration-300">Gastón Gómez</a>
           </p>
 
           <div className="flex items-center gap-4">
